@@ -1,0 +1,64 @@
+.login-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transform: perspective(1000px) rotateY(0);
+    animation: swingIn 1s ease-out;
+    backdrop-filter: blur(10px); /* Optional: adds a blur effect to the background */
+}
+
+.login-title {
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.login-form input {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.login-form input:focus {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.login-form button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-form button:hover {
+    background-color: #008c49;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes swingIn {
+    from {
+        transform: perspective(1000px) rotateY(-90deg);
+        opacity: 0;
+    }
+    to {
+        transform: perspective(1000px) rotateY(0);
+        opacity: 1;
+    }
+}
+
+
