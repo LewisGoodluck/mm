@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import Members,OTP
+from .models import Members,OTP,InvestorProfile,CustomerProfile
 from django.core.mail import send_mail
-from django.urls import reverse
 from django.contrib.auth.hashers import make_password
-from rest_framework.authtoken.models import Token
+from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate
+from .task import send_verification_email
 
 
 
@@ -18,8 +18,7 @@ class SerializeMember(serializers.ModelSerializer):
         # compare passwords
         if data['password'] != data['password2']:
             raise serializers.ValidationError({"error":"password do not match"})
-        if Members.objects.filter(email= data['email']).exists():
-            raise serializers.ValidationError({"error":"email already exist"})
+        validate_password(data['password'])
         return data
     
     def create(self,data):
@@ -27,23 +26,7 @@ class SerializeMember(serializers.ModelSerializer):
         data['password'] = make_password(data['password'])
 
         user = Members.objects.create(**data, is_active=False)
-
-        # # send activation link
-        token, created = Token.objects.get_or_create(user=user)
-        verification_link = reverse('email-verify',kwargs={"token":token.key})
-        activation_url = f"http://192.168.1.53:8000/{verification_link}"
-
-        try:
-            send_mail(
-                'Verify your MoneyMind account',
-                f'hello {user.username} click the link to verify your account: {activation_url}',
-                'lewisluiz21@gmail.com',
-                [user.email],
-                fail_silently=False
-            )
-        except Exception as e:
-            user.delete()
-            raise serializers.ValidationError(f"provide valid email please...{e}")
+        send_verification_email.delay(user.id)
 
         return user
     
@@ -57,20 +40,65 @@ class SerializeLogin(serializers.Serializer):
 
         user = authenticate(username = username, password=password)
 
-        if user is not None:
+        if user is not None and user.is_active is True:
             # generate token
            otp_instance = OTP(email = user.email)
            my_otp = otp_instance.generate_otp()
 
            send_mail(
                'OTP OTP!!',
-               f'hello {user.username} your OTP number us {my_otp} do not share it',
+               f'hello {user.username} your OTP number us {my_otp} do not share it \n it will expire in 5 minutes',
                'lewisluiz21@gmail.com',
                [otp_instance.email]
            )   
         else:
             raise serializers.ValidationError({"error":"user not found"})
 
-        return user
+        return data
 
+
+class SerializeViewInvestorProfile(serializers.ModelSerializer):
+    class Meta:
+        model = InvestorProfile
+        fields = ["user", "dob", "income_means", "income_range", "acc"]
+
+
+class SerializeViewCustomerProfile(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username')
+    class Meta:
+        model = CustomerProfile
+        fields = ["username","dob","ig","business"]
+
+class SerializeInvestorProfile(serializers.ModelSerializer):
+    username = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = InvestorProfile
+        fields = ["username", "dob", "income_means", "income_range", "acc"]
+
+    def create(self, validated_data):
+        username = validated_data.pop('username')
+        try:
+            user = Members.objects.get(username=username)
+        except Members.DoesNotExist:
+            raise serializers.ValidationError({"error": "User not found"})
         
+        investor_profile = InvestorProfile.objects.create(user=user, **validated_data)
+        return investor_profile
+    
+class SerializeCustomerProfile(serializers.ModelSerializer):
+    username = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = CustomerProfile
+        fields = ["username","dob","ig","tin","business"]
+
+    def create(self,validated_data):
+        username = validated_data.pop("username")
+        try:
+            user = Members.objects.get(username=username)
+        except Members.DoesNotExist:
+            raise serializers.ValidationError({"error":"user does not exist"})
+        
+        customer_profile = CustomerProfile.objects.create(user=user,**validated_data)
+        return customer_profile

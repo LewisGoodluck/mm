@@ -155,3 +155,6 @@ EMAIL_HOST_PASSWORD = 'dpjc dmvy dvev hlhx'      # Replace with your email passw
 DEFAULT_FROM_EMAIL = 'lewisluiz21@gmail.com'  # Replace with your email address
 
 AUTH_USER_MODEL = 'myapp.Members'
+
+# Example configuration in settings.py
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Or your broker of choice

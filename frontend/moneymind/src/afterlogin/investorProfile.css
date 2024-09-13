@@ -1,0 +1,92 @@
+/* Container styling */
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #fff; /* White background for the whole container */
+    min-height: 100vh; /* Ensure the container takes the full height of the viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content at the top */
+}
+
+/* Header styling */
+.profile-header {
+    text-align: left; /* Align header to the left */
+    margin-bottom: 20px;
+    font-size: 1.5rem; /* Adjust font size for the header */
+}
+
+.profile-header h2 {
+    color: #009900; /* Green color */
+    font-size: 2rem;
+    margin: 0; /* Remove margin from the h2 */
+}
+
+/* Table styling */
+.profile-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #fff; /* White background for table */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.profile-table thead {
+    background-color: #009900; /* Green color for header */
+    color: #fff;
+}
+
+.profile-table th,
+.profile-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray for alternating rows */
+}
+
+.profile-table tr:hover {
+    background-color: #e0f2e9; /* Light green on hover */
+}
+
+/* Button styling */
+.profile-table button {
+    background-color: #009900; /* Green background */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 15px; /* Padding for size */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1rem; /* Font size */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+}
+
+.profile-table button:hover {
+    background-color: #007700; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.profile-table button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(0, 153, 0, 0.5); /* Add custom focus shadow */
+}
+
+/* Error and Loading state styling */
+.status-message {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+.loading-message {
+    color: #009900; /* Green for loading message */
+}
+
+.error-message {
+    color: #e74c3c; /* Red for error messages */
+}

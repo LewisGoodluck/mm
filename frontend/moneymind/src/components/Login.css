@@ -1,5 +1,7 @@
+/* Centering the login form */
 .login-container {
     max-width: 400px;
+    width: 100%;
     margin: auto;
     padding: 40px;
     background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
@@ -9,6 +11,10 @@
     transform: perspective(1000px) rotateY(0);
     animation: swingIn 1s ease-out;
     backdrop-filter: blur(10px); /* Optional: adds a blur effect to the background */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* This centers the container vertically and horizontally */
 }
 
 .login-title {
@@ -17,7 +23,8 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.login-form input {
+.login-form input,
+.otp-form input {
     width: 100%;
     padding: 15px;
     margin: 10px 0;
@@ -27,12 +34,14 @@
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
-.login-form input:focus {
+.login-form input:focus,
+.otp-form input:focus {
     border-color: var(--primary-color);
     transform: scale(1.05);
 }
 
-.login-form button {
+.login-form button,
+.otp-form button {
     width: 100%;
     padding: 15px;
     background-color: var(--primary-color);
@@ -44,7 +53,8 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.login-form button:hover {
+.login-form button:hover,
+.otp-form button:hover {
     background-color: #008c49;
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -61,4 +71,17 @@
     }
 }
 
+/* OTP Section styling */
+.otp-section {
+    text-align: center;
+}
 
+.otp-section h2 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.error-message {
+    color: red;
+    margin-top: 20px;
+}

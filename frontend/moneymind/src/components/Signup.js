@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { csrfToken } from "../utility";
 import './Signup.css'; // Import the stylesheet
 
 const Signup = () => {
+    const csrfTokens = csrfToken();
     const [alert, setAlert] = useState(false); // State to control alert visibility
 
     // Function to show the alert box
@@ -38,6 +40,7 @@ const Signup = () => {
                 method: "POST",
                 headers: {
                     'Content-Type': "application/json",
+                    'X-CSRFToken' : csrfTokens
                 },
                 body: JSON.stringify(member)
             });
@@ -66,6 +69,7 @@ const Signup = () => {
         <div className="signup-wrapper">
             <div className="signup-front">
                 <form className="signup-form" onSubmit={handleSubmit}>
+                    <h2>Step Into Greatness</h2>
                     <input
                         type="text"
                         name="username"
@@ -101,7 +105,7 @@ const Signup = () => {
                         onChange={handleMember}
                         placeholder="Confirm Password" required
                     />
-                    <button type="submit">Register as Investor</button>
+                    <button type="submit">Register</button>
                 </form>
             </div>
 

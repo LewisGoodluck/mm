@@ -8,71 +8,80 @@
 body, html {
     height: 100%;
     font-family: 'Arial', sans-serif;
-    background-color: #f4f9f4; /* Light background */
+    background-color: #f0f4f8; /* Subtle light grey background */
 }
 
-/* Center the form absolutely in the middle */
+/* Center the form in the middle */
 .signup-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f9f4; /* Light background */
+    background-color: #f0f4f8;
+    padding: 20px; /* For responsive feel */
 }
 
 .signup-form {
     background-color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.5s ease-in-out;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.6s ease-in-out;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px; /* Make the form wider */
+    transition: all 0.3s ease;
 }
 
 .signup-form input {
     display: block;
     width: 100%;
-    margin: 0.5rem 0;
-    padding: 0.75rem;
-    border: 2px solid #2ecc71; /* Green border */
-    border-radius: 5px;
+    margin: 0.75rem 0;
+    padding: 0.9rem;
+    border: 2px solid #2ecc71;
+    border-radius: 8px;
     font-size: 1rem;
+    background-color: #f9f9f9; /* Light background for inputs */
+    transition: all 0.3s ease, transform 0.3s ease;
 }
 
 .signup-form input:focus {
-    border-color: #27ae60; /* Darker green focus */
+    border-color: #27ae60;
     outline: none;
+    background-color: #e8f5e9; /* Slight green tint on focus */
+    transform: scale(1.02); /* Slightly enlarge input on focus */
 }
 
 .signup-form button {
     display: block;
     width: 100%;
-    padding: 0.75rem;
-    margin-top: 1rem;
+    padding: 0.85rem;
+    margin-top: 1.5rem;
     border: none;
-    background-color: #2ecc71; /* Green button */
+    background-color: #2ecc71;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    font-weight: bold;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .signup-form button:hover {
-    background-color: #27ae60; /* Darker green on hover */
+    background-color: #27ae60;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Hover shadow effect */
+    transform: scale(1.02); /* Slightly enlarge button on hover */
 }
 
-/* Alert box */
+/* Custom Alert Box */
 .custom-alert {
     position: absolute;
-    top: 20px;
+    top: 100px;
     right: 20px;
     padding: 1rem 2rem;
-    background-color: #2ecc71; /* Green */
+    background-color: #2ecc71;
     color: white;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-20px);
@@ -85,14 +94,53 @@ body, html {
     transform: translateY(0);
 }
 
-/* Minimal fade-in animation */
+/* Smooth fade-in animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-20px);
     }
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Futuristic font style for the title with animation */
+.signup-front h2 {
+    font-family: 'Orbitron', sans-serif; /* Replace with a futuristic font */
+    color: #2ecc71; /* Bright green color for the text */
+    font-size: 2rem;
+    display: inline-block;
+    overflow: hidden; /* Ensures that the text is visible during animation */
+    white-space: nowrap; /* Prevents wrapping */
+    animation: animateText 2s steps(30, end) forwards; /* Animation for the title text */
+}
+
+/* Animation to display each letter one at a time */
+@keyframes animateText {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+    .signup-form {
+        padding: 2rem;
+        max-width: 100%;
+        border-radius: 10px;
+    }
+
+    .signup-form button {
+        font-size: 1.1rem;
+    }
+
+    .signup-form input {
+        padding: 0.8rem;
+        font-size: 0.95rem;
     }
 }
